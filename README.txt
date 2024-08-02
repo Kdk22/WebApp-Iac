@@ -1,0 +1,2 @@
+Simple web app is hosted. Iac terraform tool is used to create azure resoures
+Azure Key Vault for Secrets Management, storage accout for state storage is already created , Applicatoin Insight is usde for monitoring
