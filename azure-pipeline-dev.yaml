@@ -15,13 +15,13 @@ variables:
    value: 'dev'
 
  - name: 'backend_rg'
-   value: 'terraform-backend'
+   value: 'myTFResourceGroup'
 
  - name: 'backend_storageaccount'
-   value: 'terraformbackend2023'
+   value: 'statestoragetf'
 
  - name: 'backend_container'
-   value: 'terraform'
+   value: 'statecon'
 
  - name: 'backendkey_tfstate'
    value: 'terraform.tfstate'
