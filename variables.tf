@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = "myTFResourceGroup"
+  default = "RGbyTF"
 }
 variable "location" {
   description = "Location variable"
