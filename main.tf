@@ -12,6 +12,13 @@ terraform {
     container_name       = "statecon"
     key                  = "terraform.tfstate"
   }
+   cloud {
+    organization = "task1"
+
+    workspaces {
+      name = "webapp-tf"
+    }
+  }
 }
 
 
