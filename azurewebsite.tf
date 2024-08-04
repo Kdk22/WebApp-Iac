@@ -58,7 +58,7 @@ resource "azurerm_linux_function_app" "be-fnapp" {
   }
 
   site_config {
-# only allows communication from that subnet
+    # only allows communication from that subnet
     ip_restriction {
       virtual_network_subnet_id = azurerm_subnet.fe-subnet.id
       priority                  = 100
