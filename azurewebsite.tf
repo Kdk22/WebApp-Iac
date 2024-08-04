@@ -1,7 +1,7 @@
 #Frontend
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "fe-webapp" {
-  name                = "task1"
+  name                = "weapptf2024"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.fe-asp.id
@@ -31,7 +31,7 @@ resource "azurerm_linux_web_app" "fe-webapp" {
 #Backend
 #storage account for functionapp
 resource "azurerm_storage_account" "fn-storageaccount" {
-  name                     = "fgfunctionappsa2024"
+  name                     = "fgfnwebapptf2024"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
@@ -39,7 +39,7 @@ resource "azurerm_storage_account" "fn-storageaccount" {
 }
 
 resource "azurerm_linux_function_app" "be-fnapp" {
-  name                = "be-function-app"
+  name                = "be-function-webapptf2024"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
