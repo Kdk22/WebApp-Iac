@@ -1,6 +1,6 @@
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
-#We will use checkov for static code analysis
+#We will use checkov for static code analysis. it tells me what mistakes in code and the vulnerabilities
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
@@ -64,6 +64,8 @@ stages :
             publishRunAttachments: true
             displayName: Publish Test Result
 
+
+# After checkov scans the code i have the terraform validate that checks the syntax error in terraform code
   - stage: validate
     displayName : 'Terraform Validate'
     jobs:
@@ -90,6 +92,9 @@ stages :
         inputs:
           provider: 'azurerm'
           command: 'validate' 
+
+# if the validate succeds we plan and apply 
+# and in plan stage i have set multiple checkpoints becuase i have set apply to auto approve 
 
   - stage: Plan_Apply_dev
     dependsOn: [validate]
