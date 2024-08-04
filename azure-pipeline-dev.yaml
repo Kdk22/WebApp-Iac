@@ -9,7 +9,7 @@ trigger:
 
 variables:
  - name: 'serviceconnection'
-   value: 'fitnessgeek-sc'
+   value: 'webapp-sc'
 
  - name: 'environment'
    value: 'dev'
