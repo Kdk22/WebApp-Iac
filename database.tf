@@ -68,4 +68,5 @@ resource "azurerm_key_vault_secret" "sqldb_cnxn" {
   key_vault_id = azurerm_key_vault.fg-keyvault.id
   depends_on = [
     azurerm_mssql_database.fg-database, azurerm_key_vault_access_policy.kv_access_policy_01
+  ]
 }
