@@ -18,8 +18,8 @@ resource "azurerm_key_vault_secret" "sqladminpassword" {
   depends_on = [
     azurerm_mssql_database.fg-database,
     azurerm_key_vault.fg-keyvault,
-    azurerm_key_vault_access_policy.kv_access_policy_01,
-    azurerm_key_vault_access_policy.kv_access_policy_02
+    azurerm_key_vault_access_policy.kv_access_policy_sc,
+    azurerm_key_vault_access_policy.kv_access_policy_me
   ]
 }
 
@@ -72,7 +72,7 @@ resource "azurerm_key_vault_secret" "sqldb_cnxn" {
   depends_on = [
     azurerm_mssql_database.fg-database,
     azurerm_key_vault.fg-keyvault,
-    azurerm_key_vault_access_policy.kv_access_policy_01,
-    azurerm_key_vault_access_policy.kv_access_policy_02
+    azurerm_key_vault_access_policy.kv_access_policy_sc,
+    azurerm_key_vault_access_policy.kv_access_policy_me
   ]
 }

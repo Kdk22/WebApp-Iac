@@ -16,7 +16,7 @@ resource "azurerm_key_vault" "fg-keyvault" {
 }
 
 # this permission is for service connection from app registration, this is given to store database secrets to key vault
-resource "azurerm_key_vault_access_policy" "kv_access_policy_01" {
+resource "azurerm_key_vault_access_policy" "kv_access_policy_sc" {
 
   key_vault_id = azurerm_key_vault.fg-keyvault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
@@ -32,7 +32,7 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_01" {
 }
 
 # permission to my self
-resource "azurerm_key_vault_access_policy" "kv_access_policy_02" {
+resource "azurerm_key_vault_access_policy" "kv_access_policy_me" {
   key_vault_id       = azurerm_key_vault.fg-keyvault.id
   tenant_id          = data.azurerm_client_config.current.tenant_id
   object_id          = "ab35c899-90de-4dcc-9d4f-ebae7a569976"
@@ -48,8 +48,8 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_02" {
 # here i used the same storge accout created for function app: azurerm_linux_function_app
 # if you use   log_analytics_destination_type = Dedicated then your cost would be higher
 
-resource "azurerm_monitor_diagnostic_setting" "kvlogging" {
-  name                       = "kvlogging-diagonise"
+resource "azurerm_monitor_diagnostic_setting" "kvlog" {
+  name                       = "kv-log-diagonise"
   target_resource_id         = azurerm_key_vault.fg-keyvault.id
   storage_account_id         = azurerm_storage_account.fn-storageaccount.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.fg-loganalytics.id
