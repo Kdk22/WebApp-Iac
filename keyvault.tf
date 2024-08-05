@@ -48,7 +48,7 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_01" {
 #   secret_permissions = ["Get", "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set"]
 
 #   depends_on = [azurerm_key_vault.fg-keyvault]
-}
+#}
 
 /*
 need to enable the logging for key vault so 
