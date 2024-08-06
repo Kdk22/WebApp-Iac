@@ -43,7 +43,7 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_me" {
 }
 
 
-# Grant Key Vault access to the Web App
+# Grant Key Vault access to the Web App. 
 resource "azurerm_key_vault_access_policy" "kv_access_policy_web_app" {
   key_vault_id = azurerm_key_vault.fg-keyvault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id

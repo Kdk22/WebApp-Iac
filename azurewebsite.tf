@@ -22,6 +22,10 @@ resource "azurerm_linux_web_app" "fe-webapp" {
     "ApplicationInsightsAgent_EXTENSION_VERSION" = "~2"
   }
 
+  identity {
+    type = "SystemAssigned"
+  }
+
 
   depends_on = [
     azurerm_service_plan.fe-asp, azurerm_application_insights.fg-appinsights
