@@ -1,66 +1,67 @@
-Simple web app is hosted. Iac terraform tool is used to create azure resoures
-Azure Key Vault for Secrets Management, storage accout for state storage is already created , Applicatoin Insight is used for monitoring
-Here i have created one extra storage account to store the log data. Key Vault diagonistic log data are stored in here.
-Tools I used is VSCode and i have installed terraform in it and i have used the vs code terminal.
+Simple Web App Deployment with Terraform and Azure Cloud and Devops
+Overview
+A simple  3 tier web application can be hosted in the Azure Cloud Enviroment.
+Azure Key Vault is used for secrets management.
+Azure Storage Account is used for state storage.
+Application Insights is used for monitoring.
+An additional Azure Storage Account is created to store log data, including Key Vault diagnostic log data.
+Tools used include VSCode with the Terraform extension and the VSCode terminal.
+Steps to Set Up
+Step 1: Create App Registration and Service Principal
+Create an app registration that automatically creates a Service Principal and assigns it the Contributor role for your subscription. Example using Azure CLI:
 
-Step : 1
-Create App registration that creates the SP automatically and give it a permission as a Contributor to your subscription.
-for eg like this in cli :  az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/75e2cef5-d3ca-42ff-8b0d-4dab256b9453"
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/75e2cef5-d3ca-42ff-8b0d-4dab256b9453"
+Step 2: Define Environment Variables
+If you are not using Terraform Cloud, pass the variables in your terminal:
 
-
-Step : 2
-you can define the enviorment variable in Terraform cloud if you have used the terraform cloud workspace but in this app i have not used . so I have passed the variables in my terminal
 $Env:ARM_CLIENT_ID = "******-******-******-******-********"
 $Env:ARM_CLIENT_SECRET = "******-******-******-******-********"
 $Env:ARM_SUBSCRIPTION_ID = "******-******-******-******-********"
 $Env:ARM_TENANT_ID = "******-******-******-******-********"
-
-to check all env variables you can do is 
+To check all environment variables:
 dir env:
 
-Step :3 Step up Storage account to store state file
- az storage account create   --name <your storage account name> --resource-group <your resource group name> --location westus2 --sku Standard_LRS --allow-blob-public-access true 
+Step 3: Set Up Storage Account for State File
+Create a storage account to store the Terraform state file:
 
- step : 4 Create Blob container inside your storage account
- az storage container create --name <your blob account name> --account-name <your storage account name>  --public-access off
+az storage account create --name <your storage account name> --resource-group <your resource group name> --location westus2 --sku Standard_LRS --allow-blob-public-access true
 
-step :5 Object Id
-Here in access policy i have passed the object id . these are copied from Azure Portal
-One for service connection, one for user and one for web app to access the key vault . You can change it according to your requirement.
+Step 4: Create Blob Container
+Create a blob container inside your storage account:
 
-step : 6 Devops Configuration
-First, make sure you have the Azure CLI and Azure DevOps extension installed. If not, you can install
+az storage container create --name <your blob container name> --account-name <your storage account name> --public-access off
+Step 5: Configure Access Policy
+Set the access policy in Azure Key Vault using object IDs for service connection, user, and web app. These IDs can be copied from the Azure Portal.
+
+Step 6: DevOps Configuration
+Ensure you have the Azure CLI and Azure DevOps extension installed:
+
 az login
-
 az devops configure --defaults organization=https://dev.azure.com/YOUR_ORGANIZATION
+az devops project create --name "Your Project Name" --description "Your project description" --visibility public --process agile --source-control git
+Step 7: Connect Git Project to Azure DevOps
+Connect your Git project to your Azure DevOps project.
 
-az devops project create --name "Your Project Name" --description "Your project description" --visibility public --process agile --source-control git 
+Step 8: Connect Service Connection in Azure DevOps
+If you already have a service connection, use the existing one. If not, create a new service connection in Azure. Create a secret key and provide the service principal key, ID, tenant ID, and subscription ID.
 
-Step: 7 Connect your git project to your azure Devops 
+Step 9: Give Git YAML File Access to DevOps Pipeline
+Go to the pipeline section in Azure DevOps, create a pipeline, and give it access to the YAML file in your Git repository. Select the existing YAML file from Git and save it in DevOps.
 
-Step: 8 Connect Service Connection in Azure Devops
-i already have service connection so i will use existing sc. if not create in azure , create secret key as well 
-pass service principle key , id , tenant id , subscription id
-Application (client) ID = Service Principal Id
-  client secret value = Service principal key
+Step 10: Install Terraform Extension in Azure DevOps
+Install the Terraform extension in Azure DevOps from the organization settings. Choose the one from Microsoft DevLabs.
 
-Step: 9 Give git yaml file access to devops pipeline
-go to pipeline and create pipeline . here you need to give access to pipeline to access that yaml file in the git.
- so select the existing yaml file from git and save in devops
+Before executing in the pipeline, ensure terraform init and all the above setups are done. Up to this point, your code should run and create all the resources.
 
- Step : 10 Install Terraform extension in azure devops
- go to organization settings and install terraform extension in azure devops
-i choosed one from Microsoft DevLabs
+Step 11: Trunk-Based Development PR Validation
+Set up pull request (PR) validation for trunk-based development:
 
-Before you execute in pipeline make sure terraform init and all the above set up is done.
-Upto here your code should run and all the resources should be created.
+Go to branch policies in the main branch inside your Azure DevOps.
+Require a minimum number of reviewers (set to 1) and allow requestors to approve.
+Create a new branch, push the PR validation YAML file, and push it. Check on Azure DevOps, create a pull request, and merge it.
 
+Acknowledgements
+Thanks to:
 
-
-Thanks to 
-ned1313 for 
-terraform-tuesdays/2021-05-25-ADO
-and 
-SkillBuilderZone for
-SimpleApp_Terraform/
-projects.
+ned1313 for terraform-tuesdays/2021-05-25-ADO
+SkillBuilderZone for SimpleApp_Terraform/
