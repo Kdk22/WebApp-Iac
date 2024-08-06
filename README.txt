@@ -56,9 +56,15 @@ Before executing in the pipeline, ensure terraform init and all the above setups
 Step 11: Trunk-Based Development PR Validation
 Set up pull request (PR) validation for trunk-based development:
 
-Go to branch policies in the main branch inside your Azure DevOps.
-Require a minimum number of reviewers (set to 1) and allow requestors to approve.
-Create a new branch, push the PR validation YAML file, and push it. Check on Azure DevOps, create a pull request, and merge it.
+Go to branch policies in the main branch inside your Azure DevOps git or if you have used github 
+Go to the settings branches add new ruleset and add new branch 
+
+Require a minimum number of reviewers (set to 1) and allow requestors to approve in azure devops git .
+Create a new branch, push the PR validation YAML file. Check on Azure DevOps git or github, create a pull request, review  and merge it.
+
+
+Go to pipeline create new pipeline for pr-validation and point that to your existing git yaml pipeline.
+now whenever new pull request is created it should automatically run the pipeline.
 
 Acknowledgements
 Thanks to:
