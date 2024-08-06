@@ -43,11 +43,29 @@ resource "azurerm_key_vault_access_policy" "kv_access_policy_me" {
 }
 
 
+# Grant Key Vault access to the Web App
+resource "azurerm_key_vault_access_policy" "kv_access_policy_web_app" {
+  key_vault_id = azurerm_key_vault.fg-keyvault.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = azurerm_linux_web_app.fe-webapp.identity[0].principal_id
+
+  key_permissions = ["Get", "List"]
+
+  secret_permissions = [
+    "Get",
+    "List"
+  ]
+
+  depends_on = [
+    azurerm_key_vault.fg-keyvault,
+    azurerm_linux_web_app.fe-webapp
+
+  ]
+}
 
 # need to enable the logging for key vault
 # here i used the same storge accout created for function app: azurerm_linux_function_app
 # if you use   log_analytics_destination_type = Dedicated then your cost would be higher
-
 resource "azurerm_monitor_diagnostic_setting" "kvlog" {
   name                       = "kv-log-diagonise"
   target_resource_id         = azurerm_key_vault.fg-keyvault.id
