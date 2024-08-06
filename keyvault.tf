@@ -73,24 +73,15 @@ resource "azurerm_monitor_diagnostic_setting" "kvlog" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.fg-loganalytics.id
 
 
-  log {
+  enabled_log {
     category = "AuditEvent"
-    enabled  = true
 
-    retention_policy {
-      enabled = false
-      days    = 0
-    }
+
   }
 
   metric {
     category = "AllMetrics"
     enabled  = true
-
-    retention_policy {
-      enabled = false
-      days    = 0
-    }
 
   }
   depends_on = [
