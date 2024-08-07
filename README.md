@@ -7,10 +7,11 @@ Application Insights is used for monitoring.
 An additional Azure Storage Account is created to store log data, including Key Vault diagnostic log data.
 Tools used include VSCode with the Terraform extension and the VSCode terminal.
 Steps to Set Up
+
 Step 1: Create App Registration and Service Principal
 Create an app registration that automatically creates a Service Principal and assigns it the Contributor role for your subscription. Example using Azure CLI:
-
 az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/75e2cef5-d3ca-42ff-8b0d-4dab256b9453"
+
 Step 2: Define Environment Variables
 If you are not using Terraform Cloud, pass the variables in your terminal:
 
@@ -30,6 +31,7 @@ Step 4: Create Blob Container
 Create a blob container inside your storage account:
 
 az storage container create --name <your blob container name> --account-name <your storage account name> --public-access off
+
 Step 5: Configure Access Policy
 Set the access policy in Azure Key Vault using object IDs for service connection, user, and web app. These IDs can be copied from the Azure Portal.
 
